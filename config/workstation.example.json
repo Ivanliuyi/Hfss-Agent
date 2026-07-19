@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "workstation_name": "example",
+  "hfss": {
+    "prog_id": "Ansoft.ElectronicsDesktop",
+    "expected_version": "2019.1",
+    "graphical": true
+  },
+  "ollama": {
+    "base_url": "http://127.0.0.1:11434",
+    "model": "qwen2.5-coder-32b",
+    "timeout_seconds": 120
+  },
+  "paths": {
+    "output": "output",
+    "logs": "logs",
+    "templates": "templates"
+  }
+}

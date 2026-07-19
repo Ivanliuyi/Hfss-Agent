@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# IDE
+.idea/
+.vscode/
+
+# Local environment
+.env
+.env.*
+config/workstation.local.json
+
+# Logs and generated outputs
+logs/*
+!logs/.gitkeep
+output/*
+!output/.gitkeep
+data/*
+!data/.gitkeep
+
+# HFSS temporary and result files
+*.aedtresults/
+*.aedt.lock
+*.aedt.auto
+*.lock
+*.log
+
+# Large local AI models
+*.gguf
+*.safetensors
+*.bin
+models/
+
+# System files
+Thumbs.db
+Desktop.ini
+.DS_Store
