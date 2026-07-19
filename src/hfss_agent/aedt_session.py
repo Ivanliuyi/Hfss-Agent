@@ -1,6 +1,8 @@
 import win32com.client
 
 class AEDTSession:
+    """负责AEDT连接、版本信息及版本兼容判断。"""
+        # 左边是Agent使用的标准名称，右边是HFSS COM要求的名称。
     
     def __init__(self, prog_id="Ansoft.ElectronicsDesktop"):
         self.prog_id = prog_id

@@ -1,3 +1,4 @@
+from pathlib import Path
 from aedt_session import AEDTSession
 
 
@@ -112,6 +113,49 @@ class ProjectManager:
                 f"创建HFSS设计失败：{design_name}"
             ) from error
             
+    def save_project(self,project_name,output_dir="output"):
+        # 保存前必须已经创建Project。
+        if self.project is None:
+            raise RuntimeError(
+                "尚未创建工程，请先调用create_project()"
+            )
+
+        # __file__是当前Python文件的位置。
+        # parents[2]对应Hfss-Agent项目根目录。
+        project_root = Path(__file__).resolve().parents[2]
+
+        output_path = Path(output_dir)
+
+        # 如果传入的是相对路径，则放在项目根目录下面。
+        if not output_path.is_absolute():
+            output_path = project_root / output_path
+
+        # 文件夹不存在时自动创建。
+        output_path.mkdir(
+            parents=True,
+            exist_ok=True
+        )
+
+        # 自动补充HFSS工程扩展名。
+        if not project_name.lower().endswith(".aedt"):
+            project_name = project_name + ".aedt"
+
+        self.project_path = output_path / project_name
+
+        try:
+            # SaveAs第二个参数True表示允许覆盖同名工程。
+            self.project.SaveAs(
+                str(self.project_path),
+                True
+            )
+
+            return self.project_path
+
+        except Exception as error:
+            raise RuntimeError(
+                f"保存HFSS工程失败：{self.project_path}"
+            ) from error
+            
 def main():
     # 第一层：创建并连接AEDT Session。
     session = AEDTSession()
@@ -134,6 +178,12 @@ def main():
     print("HFSS设计创建成功")
     print("Design对象：", design)
     print("求解类型：", manager.solution_type)
+    project_path = manager.save_project(
+    project_name="HFSS_Agent_Test"
+)
+
+    print("HFSS工程保存成功")
+    print("Project路径：", project_path)
 
 
 if __name__ == "__main__":
