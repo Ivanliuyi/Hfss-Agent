@@ -1,5 +1,5 @@
 from pathlib import Path
-from aedt_session import AEDTSession
+from .aedt_session import AEDTSession
 
 
 class ProjectManager:
